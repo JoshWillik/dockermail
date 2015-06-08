@@ -3,13 +3,13 @@
 if [ -f /mail_settings/ssl-cert-snakeoil.key ]; then
 	cp /mail_settings/ssl-cert-snakeoil.key /etc/ssl/private/ssl-cert-snakeoil.key
 else
-	cp /etc/ssl/private/ssl-cert-snakeoil.key /mail_settings/ssl-cert-snakeoil.key  
+	cp /etc/ssl/private/ssl-cert-snakeoil.key /mail_settings/ssl-cert-snakeoil.key
 fi
 # Then the pem file
 if [ -f /mail_settings/ssl-cert-snakeoil.pem ]; then
 	cp /mail_settings/ssl-cert-snakeoil.pem /etc/ssl/certs/ssl-cert-snakeoil.pem
 else
-	cp /etc/ssl/certs/ssl-cert-snakeoil.pem /mail_settings/ssl-cert-snakeoil.pem  
+	cp /etc/ssl/certs/ssl-cert-snakeoil.pem /mail_settings/ssl-cert-snakeoil.pem
 fi
 
 # Copy OpenDKIM config
@@ -29,7 +29,7 @@ cp /mail_settings/domains /etc/postfix/virtual-mailbox-domains
 
 # todo: this could probably be done in one line
 mkdir /etc/postfix/tmp
-awk < /etc/postfix/virtual '{ print $2 }' > /etc/postfix/tmp/virtual-receivers
+awk < /etc/postfix/virtual '{print $2}' > /etc/postfix/tmp/virtual-receivers
 sed -r 's,(.+)@(.+),\2/\1/,' /etc/postfix/tmp/virtual-receivers > /etc/postfix/tmp/virtual-receiver-folders
 paste /etc/postfix/tmp/virtual-receivers /etc/postfix/tmp/virtual-receiver-folders > /etc/postfix/virtual-mailbox-maps
 
